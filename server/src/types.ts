@@ -1,0 +1,1 @@
+export type StatusType = "active" | "interview" | "rejected";
