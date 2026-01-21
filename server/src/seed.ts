@@ -5,14 +5,15 @@ import { Skill } from "./entities/Skill";
 import { StatusType } from "./types";
 
 async function seed() {
+  await AppDataSource.initialize();
+
+  await AppDataSource.query('TRUNCATE TABLE "candidate_skill" CASCADE;');
+  await AppDataSource.query('TRUNCATE TABLE "candidate" CASCADE;');
+  await AppDataSource.query('TRUNCATE TABLE "skill" CASCADE;');
+
   const skillRepo = AppDataSource.getRepository(Skill);
   const candidateRepo = AppDataSource.getRepository(Candidate);
 
-  await AppDataSource.query('TRUNCATE TABLE "candidate" CASCADE;');
-
-  await AppDataSource.query('TRUNCATE TABLE "skill" CASCADE;');
-
-  const skillsMap = new Map<string, Skill>();
   const skillNames = [
     "React",
     "TypeScript",
@@ -21,7 +22,7 @@ async function seed() {
     "CSS",
     "Docker",
   ];
-
+  const skillsMap = new Map<string, Skill>();
   for (const name of skillNames) {
     const skill = skillRepo.create({ name });
     await skillRepo.save(skill);
@@ -30,6 +31,7 @@ async function seed() {
 
   const candidatesData: Array<{
     name: string;
+    position: string;
     email: string;
     phone: string;
     status: StatusType;
@@ -38,6 +40,7 @@ async function seed() {
   }> = [
     {
       name: "John Doe",
+      position: "Frontend Developer",
       email: "john@example.com",
       phone: "+123456789",
       status: "active",
@@ -46,6 +49,7 @@ async function seed() {
     },
     {
       name: "Anna Smith",
+      position: "Fullstack Developer",
       email: "anna@example.com",
       phone: "+987654321",
       status: "interview",
@@ -54,6 +58,7 @@ async function seed() {
     },
     {
       name: "Michael Brown",
+      position: "Backend Developer",
       email: "michael@example.com",
       phone: "+111222333",
       status: "rejected",
@@ -62,6 +67,7 @@ async function seed() {
     },
     {
       name: "Emily Davis",
+      position: "Junior Frontend Developer",
       email: "emily@example.com",
       phone: "+444555666",
       status: "active",
@@ -70,6 +76,7 @@ async function seed() {
     },
     {
       name: "Alex Johnson",
+      position: "Fullstack Engineer",
       email: "alex@example.com",
       phone: "+777888999",
       status: "interview",
