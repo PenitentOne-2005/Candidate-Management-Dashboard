@@ -5,14 +5,11 @@ import { Skill } from "./entities/Skill";
 import { StatusType } from "./types";
 
 async function seed() {
-  await AppDataSource.initialize();
-
   const skillRepo = AppDataSource.getRepository(Skill);
   const candidateRepo = AppDataSource.getRepository(Candidate);
 
-  // очистка (опционально)
-  await candidateRepo.delete({});
-  await skillRepo.delete({});
+  await candidateRepo.clear();
+  await skillRepo.clear();
 
   const skillsMap = new Map<string, Skill>();
 
@@ -91,12 +88,6 @@ async function seed() {
   }
 
   console.log("Seed completed successfully");
-  process.exit(0);
 }
-
-seed().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
 
 export default seed;

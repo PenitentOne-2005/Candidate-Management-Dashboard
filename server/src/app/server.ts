@@ -1,10 +1,12 @@
 import express from "express";
+import dotenv from "dotenv";
+dotenv.config();
+
 import cors from "cors";
 import { AppDataSource } from "../data-source";
-import { seedIfNeeded } from "../seedIfNeeded";
 import router from "../routes/candidates";
 import errorHandler from "../middleware/errorHandlers";
-
+import { seedIfNeeded } from "../seedIfNeeded";
 
 const app = express();
 
