@@ -8,8 +8,8 @@ async function seed() {
   const skillRepo = AppDataSource.getRepository(Skill);
   const candidateRepo = AppDataSource.getRepository(Candidate);
 
-  await AppDataSource.getRepository("candidate_skill").clear();
-  await candidateRepo.clear();
+  await AppDataSource.query('TRUNCATE TABLE "candidate" CASCADE;');
+
   await skillRepo.clear();
 
   const skillsMap = new Map<string, Skill>();
