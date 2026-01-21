@@ -15,6 +15,10 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
+if (!process.env.DATABASE_URL) {
+  throw new Error("DATABASE_URL is not defined");
+}
+
 AppDataSource.initialize()
   .then(() => {
     console.log("DB connected");
