@@ -6,6 +6,7 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "rootDir": "src",
     "outDir": "./dist",
     "skipLibCheck": true,
     "types": ["node", "express"]
