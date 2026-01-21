@@ -10,10 +10,9 @@ async function seed() {
 
   await AppDataSource.query('TRUNCATE TABLE "candidate" CASCADE;');
 
-  await skillRepo.clear();
+  await AppDataSource.query('TRUNCATE TABLE "skill" CASCADE;');
 
   const skillsMap = new Map<string, Skill>();
-
   const skillNames = [
     "React",
     "TypeScript",
@@ -84,7 +83,6 @@ async function seed() {
       ...data,
       skills: data.skills.map((s) => skillsMap.get(s)!),
     });
-
     await candidateRepo.save(candidate);
   }
 
