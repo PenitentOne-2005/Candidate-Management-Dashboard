@@ -1,8 +1,10 @@
 import express from "express";
 import cors from "cors";
 import { AppDataSource } from "../data-source";
+import { seedIfNeeded } from "../seedIfNeeded";
 import router from "../routes/candidates";
 import errorHandler from "../middleware/errorHandlers";
+
 
 const app = express();
 
@@ -20,8 +22,11 @@ if (!process.env.DATABASE_URL) {
 }
 
 AppDataSource.initialize()
-  .then(() => {
+  .then(async () => {
     console.log("DB connected");
+
+    await seedIfNeeded();
+
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
   })
   .catch((err) => console.error("DB connection error:", err));
