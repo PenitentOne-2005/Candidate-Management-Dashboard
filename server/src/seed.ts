@@ -5,8 +5,6 @@ import { Skill } from "./entities/Skill";
 import { StatusType } from "./types";
 
 async function seed() {
-  await AppDataSource.initialize();
-
   await AppDataSource.query('TRUNCATE TABLE "candidate_skill" CASCADE;');
   await AppDataSource.query('TRUNCATE TABLE "candidate" CASCADE;');
   await AppDataSource.query('TRUNCATE TABLE "skill" CASCADE;');
